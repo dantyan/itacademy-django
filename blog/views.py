@@ -9,3 +9,11 @@ def home(request):
     return render(request, 'articles/home.html', {
         'posts': posts
     })
+
+
+def post(request, pk):
+    blog_post = Post.objects.get(id=pk)
+
+    return render(request, 'articles/post.html', {
+        'post': blog_post
+    })
