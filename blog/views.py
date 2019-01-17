@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from blog.models import Post
+from blog.models import Post, Theme
 
 
 def home(request):
@@ -16,4 +16,13 @@ def post(request, pk):
 
     return render(request, 'articles/post.html', {
         'post': blog_post
+    })
+
+
+def theme(request, pk):
+    blog_theme = Theme.objects.get(id=pk)
+    posts = Post.objects.filter(theme=blog_theme)
+
+    return render(request, 'articles/home.html', {
+        'posts': posts
     })
