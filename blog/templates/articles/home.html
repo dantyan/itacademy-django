@@ -13,6 +13,9 @@
                 <a href="/blog/post-{{ post.id }}/">{{ post.title }}</a>
                 <a href="/blog/theme-{{ post.theme.id }}/">{{ post.theme }}</a>
             </h3>
+            <div>
+                <img src="{{ post.theme.image.url }}" alt="">
+            </div>
             {#            <p>#}
             {#                {{ post.content }}#}
             {#            </p>#}
