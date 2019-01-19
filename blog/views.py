@@ -30,7 +30,13 @@ def theme(request, pk):
 
 
 def add_post(request):
-    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+    else:
+        form = PostForm()
 
     return render(request, 'articles/add-post.html', {
         'form': form
