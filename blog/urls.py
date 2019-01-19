@@ -1,6 +1,6 @@
 from django.urls import path
 
-from blog.views import add_post, home, post, theme
+from blog.views import add_post, add_theme, home, post, theme
 
 app_name = 'blog'
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('theme-<int:pk>/', theme, name="theme"),
 
     path('add/', add_post, name="add"),
+    path('add-theme', add_theme, name='add-theme')
 ]

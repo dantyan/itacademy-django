@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from blog.forms import PostForm
+from blog.forms import PostForm, ThemeForm
 from blog.models import Post, Theme
 
 
@@ -42,5 +42,21 @@ def add_post(request):
         form = PostForm()
 
     return render(request, 'articles/add-post.html', {
+        'form': form
+    })
+
+
+def add_theme(request):
+    if request.method == 'POST':
+        form = ThemeForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect(reverse('blog:home'))
+    else:
+        form = ThemeForm()
+
+    return render(request, 'articles/add-theme.html', {
         'form': form
     })
