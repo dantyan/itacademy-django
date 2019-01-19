@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from blog.forms import PostForm
 from blog.models import Post, Theme
 
 
@@ -25,4 +26,12 @@ def theme(request, pk):
 
     return render(request, 'articles/home.html', {
         'posts': posts
+    })
+
+
+def add_post(request):
+    form = PostForm()
+
+    return render(request, 'articles/add-post.html', {
+        'form': form
     })
