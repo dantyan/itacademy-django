@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from blog.forms import PostForm
 from blog.models import Post, Theme
@@ -35,6 +36,8 @@ def add_post(request):
 
         if form.is_valid():
             form.save()
+
+            return redirect(reverse('blog:home'))
     else:
         form = PostForm()
 
