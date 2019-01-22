@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'blog',
     'main',
+    'testuser',
 ]
 
 MIDDLEWARE = [
