@@ -16,7 +16,7 @@ class TestUser(models.Model):
         max_length=16,
         validators=[
             validators.MaxLengthValidator(16),
-            validators.MinLengthValidator(8)
+            validators.MinLengthValidator(6)
         ]
     )
     is_active = models.BooleanField(default=False)
@@ -25,3 +25,11 @@ class TestUser(models.Model):
         null=True,
         blank=True
     )
+    birth_date = models.DateField(
+        'День варенья',
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return self.username

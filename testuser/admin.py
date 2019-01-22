@@ -5,4 +5,6 @@ from testuser.models import TestUser
 
 @admin.register(TestUser)
 class TestUserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['username', 'email', 'join_date', 'is_active', 'birth_date']
+    list_filter = ['is_active', 'birth_date']
+    date_hierarchy = 'join_date'
