@@ -1,5 +1,13 @@
+import uuid
+
 from django.core import validators
 from django.db import models
+
+
+def upload_to(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "{}.{}".format(uuid.uuid4(), ext.lower())
+    return f'testuser/{filename}'
 
 
 class TestUser(models.Model):
@@ -29,6 +37,12 @@ class TestUser(models.Model):
         'День варенья',
         null=True,
         blank=True
+    )
+
+    avatar = models.ImageField(
+        upload_to=upload_to,
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
