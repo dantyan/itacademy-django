@@ -7,7 +7,11 @@ from django.db import models
 def upload_to(instance, filename):
     ext = filename.split('.')[-1]
     filename = "{}.{}".format(uuid.uuid4(), ext.lower())
-    return f'testuser/{filename}'
+
+    return 'testuser/{sub}/{filename}'.format(
+        sub=filename[:2],
+        filename=filename
+    )
 
 
 class TestUser(models.Model):
