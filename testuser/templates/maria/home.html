@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <th>id</th>
+        <th>username</th>
+        <th>email</th>
+        <th>avatar</th>
+    </tr>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+
+            <td>
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="" style="height: 50px;">
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
