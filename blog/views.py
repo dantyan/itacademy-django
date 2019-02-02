@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -65,14 +64,24 @@ def add_theme(request):
 
 def search_result(request):
     q = request.GET.get('q')
+    search_option = request.GET.get('search_option')
     use_content = request.GET.get('content')
 
-    if use_content:
-        posts = Post.objects.filter(
-            Q(title__icontains=q) | Q(content__icontains=q)
-        )
+    if search_option == 'exact':
+        posts = Post.objects.filter(title__iexact=q)
+    elif search_option == 'starts_with':
+        pass
+    elif search_option == 'ends_with':
+        pass
     else:
         posts = Post.objects.filter(title__icontains=q)
+
+    # if use_content:
+    #     posts = Post.objects.filter(
+    #         Q(title__icontains=q) | Q(content__icontains=q)
+    #     )
+    # else:
+    #     posts = Post.objects.filter(title__icontains=q)
 
     # query = [Q(title__icontains=q)]
     #

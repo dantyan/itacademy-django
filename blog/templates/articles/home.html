@@ -6,12 +6,14 @@
 <hr>
 
 <form action="{% url 'blog:search-result' %}">
-    <select name="" id="">
+
+    <select name="search_option">
         <option value="">all</option>
-        <option value="">exact</option>
-        <option value="">starts with</option>
-        <option value="">ends with</option>
+        <option value="exact">exact (search exact string)</option>
+        <option value="starts_with">starts with</option>
+        <option value="ends_with">ends with</option>
     </select>
+
     <input type="text" name="q" placeholder="Search string" value="{{ q }}">
 
     <label for="">
