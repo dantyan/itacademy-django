@@ -5,6 +5,25 @@
 
 <hr>
 
+<form action="{% url 'blog:search-result' %}">
+    <select name="" id="">
+        <option value="">all</option>
+        <option value="">exact</option>
+        <option value="">starts with</option>
+        <option value="">ends with</option>
+    </select>
+    <input type="text" name="q" placeholder="Search string" value="{{ q }}">
+
+    <label for="">
+        <input type="checkbox" name="content" value="1">
+        search in content
+    </label>
+
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
 <div>
 
     {% for post in posts %}

@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -59,4 +60,28 @@ def add_theme(request):
 
     return render(request, 'articles/add-theme.html', {
         'form': form
+    })
+
+
+def search_result(request):
+    q = request.GET.get('q')
+    use_content = request.GET.get('content')
+
+    if use_content:
+        posts = Post.objects.filter(
+            Q(title__icontains=q) | Q(content__icontains=q)
+        )
+    else:
+        posts = Post.objects.filter(title__icontains=q)
+
+    # query = [Q(title__icontains=q)]
+    #
+    # if use_content:
+    #     query.append(Q(content__icontains=q))
+    #
+    # posts = Post.objects.filter(reduce(operator.or_, query))
+
+    return render(request, 'articles/home.html', {
+        'posts': posts,
+        'q': q
     })
