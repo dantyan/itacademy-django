@@ -1,18 +1,5 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render
+from django.contrib.auth import views as auth_views
 
 
-# Create your views here.
-
-
-def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'profile/login.html', {
-        'form': form,
-    })
+class LoginView(auth_views.LoginView):
+    template_name = 'profile/login.html'
