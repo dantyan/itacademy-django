@@ -25,3 +25,6 @@ class Thread(models.Model):
         blank=True,
         editable=False
     )
+
+    def __str__(self):
+        return self.title

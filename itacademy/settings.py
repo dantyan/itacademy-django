@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'main',
     'testuser',
     'user',
-    'forum'
+    'forum',
 
     'common',
 ]
