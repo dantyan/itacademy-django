@@ -1,11 +1,19 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
 
+{% block wrapper %}
+    <div class="container">
+        {% block content %}empty block{% endblock %}
+    </div>
+{% endblock %}
 
 </body>
 </html>
