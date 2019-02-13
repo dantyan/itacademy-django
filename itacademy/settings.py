@@ -92,7 +92,7 @@ DATABASES = {
         'USER': 'itacademy',
         'PASSWORD': 'qweasd',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': int(os.environ.get('POSTGRES_PORT', 5432)),
     }
 }
 

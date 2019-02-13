@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'pages/_form.html' %}
 
 {% block content %}
 
@@ -6,16 +6,23 @@
 
         <div class="col">
 
-            {% for thread in threads %}
+            <div class="card">
 
-                <div>
-                    <a href="{{ thread.get_absolute_url }}">
-                        {{ thread.title }}
-                    </a>
+                <ul class="list-group list-group-flush">
+                    {% for thread in threads %}
 
-                </div>
+                        <li class="list-group-item">
+                            <a href="{{ thread.get_absolute_url }}">
+                                {{ thread.title }}
+                            </a>
+                        </li>
 
-            {% endfor %}
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+
 
         </div>
     </div>

@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import TemplateView
 
 from forum.models import Thread
 
@@ -12,8 +12,3 @@ class HomeView(TemplateView):
         data['threads'] = Thread.objects.all()
 
         return data
-
-
-class ThreadView(DetailView):
-    template_name = 'pages/thread.html'
-    model = Thread

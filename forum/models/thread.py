@@ -3,6 +3,14 @@ from django.urls import reverse
 
 
 class Thread(models.Model):
+
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
     title = models.CharField(max_length=255)
     description = models.TextField()
     author = models.ForeignKey(

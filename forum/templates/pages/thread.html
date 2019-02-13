@@ -1,24 +1,89 @@
-{% extends 'base.html' %}
-
+{% extends 'pages/_form.html' %}
 
 {% block content %}
 
     <div class="row">
         <div class="col">
             <h1>{{ object.title }}</h1>
+            <div>
+                {{ object.description }}
+            </div>
+        </div>
+    </div>
+
+    {% if children %}
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+
+                    <ul class="list-group list-group-flush">
+                        {% for child in children %}
+
+                            <li class="list-group-item">
+                                <a href="{{ child.get_absolute_url }}">
+                                    {{ child.title }}
+                                </a>
+                            </li>
+
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="row">
+        <div class="col text-right">
+            <a href="{% url 'forum:create-post' %}">add post</a>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            sub thread list
+            <div class="card">
+
+                {% if posts %}
+                    <ul class="list-group list-group-flush">
+                        {% for post in posts %}
+
+                            <li class="list-group-item">
+                                <h5>
+                                    <a href="{{ post.get_absolute_url }}">
+                                        {{ post.title }}
+                                    </a>
+                                </h5>
+
+                                <div>
+                                    <small>
+                                        author:
+                                        <a href="">
+                                            {{ post.user }}
+                                        </a>
+                                    </small>
+                                    <small>
+                                        added:
+                                        {{ post.add_time|date:'SHORT_DATE_FORMAT' }}
+                                    </small>
+
+                                </div>
+
+                            </li>
+
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="card-body">
+                        <div class="alert alert-info">no posts</div>
+                    </div>
+                {% endif %}
+
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            posts list
-        </div>
-    </div>
 
 {% endblock %}
