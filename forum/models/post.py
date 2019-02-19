@@ -7,6 +7,7 @@ class Post(models.Model):
         'forum.Thread',
         on_delete=models.CASCADE,
         null=True,
+        help_text='Some usefull help text'
     )
     user = models.ForeignKey(
         'user.UserModel',

@@ -43,6 +43,8 @@
             <div class="card">
                 <div class="card-body">
                     <form action="{% url 'forum:create-comment' %}" method="post">
+                        {{ comment_form.as_p }}
+                        {% comment %}
                         {% for field in comment_form %}
                             {% if field.is_hidden %}
                                 {{ field }}
@@ -70,6 +72,7 @@
 
 
                         {% endfor %}
+{% endcomment %}
 
                         <div>
                             {% csrf_token %}

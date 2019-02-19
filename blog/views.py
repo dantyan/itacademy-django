@@ -51,7 +51,10 @@ def add_theme(request):
         form = ThemeForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            obj = form.save(commit=False)
+
+            obj.user = request.user
+            obj.save()
 
             return redirect(reverse('blog:home'))
     else:

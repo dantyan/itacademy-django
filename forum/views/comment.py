@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.urls import reverse
 from django.views.generic import CreateView
 
@@ -11,7 +12,13 @@ class CreateCommentView(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().form_valid(form)
+
+        response = super().form_valid(form)
+
+        self.object.post.comment_cnt = F('comment_cnt') + 1
+        self.object.post.save()
+
+        return response
 
     def get_success_url(self):
         return reverse('forum:post', kwargs={'pk': self.object.post_id})

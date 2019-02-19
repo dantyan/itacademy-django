@@ -5,7 +5,7 @@ from django.urls import reverse
 class Thread(models.Model):
 
     parent = models.ForeignKey(
-        'self',
+        'forum.Thread',
         on_delete=models.CASCADE,
         null=True,
         blank=True,

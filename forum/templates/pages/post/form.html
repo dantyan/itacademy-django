@@ -9,9 +9,10 @@
                 <div class="card-body">
 
                     <form action="" method="post">
+
                         {% for field in form %}
 
-                            <fieldset class="form-group row mb25 {% if field.errors %}has-error{% endif %}">
+                            <fieldset class="form-group row {% if field.errors %}has-error{% endif %}">
                                 <div class="col-md-12">
                                     <label for="{{ field.auto_id }}" class="">
                                         {{ field.label }}
