@@ -1,4 +1,3 @@
-from django.db.models import F
 from django.urls import reverse
 from django.views.generic import CreateView
 
@@ -15,7 +14,9 @@ class CreateCommentView(CreateView):
 
         response = super().form_valid(form)
 
-        self.object.post.comment_cnt = F('comment_cnt') + 1
+        count = Comment.objects.filter(post=self.object.post).count()
+        # self.object.post.comment_cnt = F('comment_cnt') + 1
+        self.object.post.comment_cnt = count
         self.object.post.save()
 
         return response

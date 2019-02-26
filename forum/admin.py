@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from forum.models import Comment, Post, Thread
+from forum.models import Comment, Post, Tag, Thread
 
 
 @admin.register(Thread)
@@ -15,4 +15,9 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
     pass
