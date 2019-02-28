@@ -1,4 +1,7 @@
-from django.utils.translation import ngettext, ugettext
+from django.utils.translation import (
+    ngettext,
+    ugettext,
+)
 from django.views.generic import TemplateView
 
 from forum.models import Thread

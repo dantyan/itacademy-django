@@ -1,18 +1,28 @@
 {% extends 'pages/_form.html' %}
 
+{% load i18n %}
+
 {% block content %}
 
     <div class="row mb-5">
         <div class="col">
 
-            {{ title }}
+
+            {% trans 'Forum Home' %}
+
+            {% blocktrans %}Very very long text{% endblocktrans %}
+            {% blocktrans with trans_title='BURUM' trimmed %}
+                translation or {{ trans_title }}
+            {% endblocktrans %}
+
+            {% comment %}{{ title }}
             <hr>
             {{ subtitle }}
             <hr>
             {{ messages }}
             <hr>
             {{ messages_plural }}
-
+{% endcomment %}
         </div>
     </div>
 
