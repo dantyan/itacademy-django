@@ -11,4 +11,6 @@ class HomeView(TemplateView):
 
         data['threads'] = Thread.objects.all()
 
+        data['title'] = 'Forum Home'
+
         return data
