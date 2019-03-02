@@ -1,9 +1,10 @@
 from django.urls import path
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView
 
 from forum.views.comment import CreateCommentView
+from forum.views.contact import ContactView
 from forum.views.home import HomeView
-from forum.views.post import PostView, CreatePostView, UpdatePostView
+from forum.views.post import CreatePostView, PostView, UpdatePostView
 from forum.views.thread import ThreadView
 
 app_name = 'forum'
@@ -20,4 +21,6 @@ urlpatterns = [
     path('post/delete/<int:pk>/', UpdatePostView.as_view(), name="delete-post"),
 
     path('comment/create/', CreateCommentView.as_view(), name="create-comment"),
+
+    path('contact/', ContactView.as_view())
 ]

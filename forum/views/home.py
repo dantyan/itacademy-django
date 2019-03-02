@@ -1,13 +1,9 @@
-from django.utils.translation import (
-    ngettext,
-    ugettext,
-)
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 
 from forum.models import Thread
-
-
-# from django.utils.translation import ugettext as _
 
 
 class HomeView(TemplateView):
@@ -18,10 +14,18 @@ class HomeView(TemplateView):
 
         data['threads'] = Thread.objects.all()
 
-        data['title'] = ugettext('Forum Home')
-        data['subtitle'] = ugettext('Forum subtitle {}').format('BURUM')
-
-        data['messages'] = ngettext('message', 'messages', 1)
-        data['messages_plural'] = ngettext('message', 'messages', 10)
+        send_mail(
+            subject='Mail subject',
+            message='Hello from forum',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=['dan.tyan@gmail.com'],
+            html_message=render_to_string(
+                'email/test-mail.html',
+                {
+                    'foo': 'Cool forum',
+                    'bar': 100
+                }
+            )
+        )
 
         return data

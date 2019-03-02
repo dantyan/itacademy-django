@@ -1,7 +1,10 @@
 from django import forms
+from django.conf import settings
+from django.core.mail import send_mail
 from django.forms import widgets
+from django.template.loader import render_to_string
 
-from forum.models import Post, Comment
+from forum.models import Comment, Post
 
 
 class PostForm(forms.ModelForm):
@@ -32,3 +35,30 @@ class CommentForm(forms.ModelForm):
                 'rows': 4,
             }),
         }
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField()
+    subject = forms.CharField()
+    email = forms.EmailField()
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4})
+    )
+
+    def send_email(self):
+        cd = self.cleaned_data
+
+        send_mail(
+            subject=cd.get('subject'),
+            message=render_to_string(
+                'email/contact.html',
+                {
+                    'name': cd.get('name'),
+                    'message': cd.get('message'),
+                    'email': cd.get('email')
+                }
+            ),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=['dan.tyan@gmailcom'],
+            fail_silently=True
+        )
