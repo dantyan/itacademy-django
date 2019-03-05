@@ -1,0 +1,82 @@
+{% extends 'user/_user.html' %}
+{% load widget_tweaks %}
+
+{% block title %}{% trans 'Password reset' %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 ml-auto mr-auto">
+
+            <div class="card">
+                <div class="card-header">{% trans 'Password reset' %}</div>
+                <div class="card-body">
+
+                    {% if validlink %}
+
+                        <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+
+                        <form method="post">{% csrf_token %}
+                            <fieldset class="module aligned">
+                                <form action="" method="post" class="form">
+
+                                    {% if form.non_field_errors %}
+                                        <div class="non-field-errors alert alert-danger">
+                                            {% for err in form.non_field_errors %}
+                                                <p class="form-error">{{ err }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+
+                                    {% for field in form %}
+
+                                        <fieldset class="form-group row mb25 {% if field.errors %}has-error{% endif %}">
+
+                                            <div class="col-md-12">
+                                                <label for="{{ field.auto_id }}">
+                                                    {{ field.label }}
+                                                </label>
+
+                                                {% if field.errors %}
+                                                    {{ field|add_class:'is-invalid' }}
+                                                {% else %}
+                                                    {{ field }}
+                                                {% endif %}
+
+                                                {% for err in field.errors %}
+                                                    <div class="form-control-feedback invalid-feedback">{{ err }}</div>
+                                                {% endfor %}
+
+                                                <small class="form-text text-muted">
+                                                    {{ field.help_text }}
+                                                </small>
+                                            </div>
+
+                                        </fieldset>
+
+                                    {% endfor %}
+
+
+                                    <div class="form-actions text-center">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                                role="button"
+                                                class="btn btn-primary">{% trans 'Change password' %}</button>
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </form>
+
+                    {% else %}
+
+                        <p>{% trans "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset." %}</p>
+
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

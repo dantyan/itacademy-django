@@ -1,0 +1,25 @@
+{% extends 'user/_user.html' %}
+
+{% block title %}{% trans 'Password reset' %}{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-6 ml-auto mr-auto">
+
+            <div class="card">
+                <div class="card-header">{% trans 'Password reset' %}</div>
+                <div class="card-body">
+
+                    <p>{% trans "Your password has been set.  You may go ahead and log in now." %}</p>
+
+                    <p><a href="{{ login_url }}">{% trans 'Log in' %}</a></p>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
