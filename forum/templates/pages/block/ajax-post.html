@@ -4,3 +4,11 @@
         {{ post.content|linebreaks }}
     </p>
 </div>
+
+<script>
+    setTimeout(function () {
+        $.get('{% url 'forum:ajax' %}', function (ret) {
+            $('#ajax-content').html(ret);
+        });
+    }, 5000);
+</script>

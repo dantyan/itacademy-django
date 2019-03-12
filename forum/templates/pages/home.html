@@ -50,8 +50,11 @@
         $(document).ready(function () {
             $('#ajax-button').on('click', function () {
                 {#$.ajax({})#}
-                $.get('{% url 'forum:ajax' %}', function (ret) {
-                    $('#ajax-content').html(ret);
+                $.getJSON('{% url 'forum:ajax' %}', function (ret) {
+                    {#$('#ajax-content').html(ret);#}
+                    $('<p/>').text(ret.content).appendTo($('#ajax-content'));
+                    $('<h6/>').text(ret.title).appendTo($('#ajax-content'));
+
                 });
             });
         });
