@@ -5,6 +5,20 @@
 {% block content %}
 
     <div class="row">
+        <div class="col-2">
+            <button
+                    id="ajax-button"
+                    class="btn btn-outline-primary">Push me
+            </button>
+        </div>
+        <div class="col-10">
+            <div class="jumbotron" id="ajax-content">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
 
         <div class="col">
 
@@ -34,21 +48,11 @@
     <script>
 
         $(document).ready(function () {
-            $('#li-2').css('font-size', '24px');
-            $('#link-2').on('click', function () {
-                $.ajax(
-                    {
-                        url: '/forum/ajax/',
-                        success: function (ret) {
-                            $('#link-2').text(ret['title'])
-                        }
-                    }
-                );
-
-                $.get('/forum/ajax/', function () {
+            $('#ajax-button').on('click', function () {
+                {#$.ajax({})#}
+                $.get('{% url 'forum:ajax' %}', function (ret) {
+                    $('#ajax-content').html(ret);
                 });
-
-                return false;
             });
         });
 

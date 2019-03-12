@@ -24,5 +24,5 @@ urlpatterns = [
     path('comment/create/', CreateCommentView.as_view(), name="create-comment"),
 
     path('contact/', ContactView.as_view()),
-    path('ajax/', ajax_view)
+    path('ajax/', ajax_view, name="ajax"),
 ]
