@@ -1,30 +1,8 @@
-{% extends 'pages/_form.html' %}
-
+{% extends 'pages/_forum.html' %}
+{% load static %}
 {% load i18n %}
 
 {% block content %}
-
-    <div class="row mb-5">
-        <div class="col">
-
-
-            {% trans 'Forum Home' %}
-
-            {% blocktrans %}Very very long text{% endblocktrans %}
-            {% blocktrans with trans_title='BURUM' trimmed %}
-                translation or {{ trans_title }}
-            {% endblocktrans %}
-
-            {% comment %}{{ title }}
-            <hr>
-            {{ subtitle }}
-            <hr>
-            {{ messages }}
-            <hr>
-            {{ messages_plural }}
-{% endcomment %}
-        </div>
-    </div>
 
     <div class="row">
 
@@ -35,8 +13,10 @@
                 <ul class="list-group list-group-flush">
                     {% for thread in threads %}
 
-                        <li class="list-group-item">
-                            <a href="{{ thread.get_absolute_url }}">
+                        <li class="list-group-item" id="li-{{ thread.pk }}">
+                            <a href="{{ thread.get_absolute_url }}"
+                               class="thread-link"
+                               id="link-{{ thread.pk }}">
                                 {{ thread.title }}
                             </a>
                         </li>
@@ -47,8 +27,30 @@
             </div>
 
 
-
         </div>
     </div>
 
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#li-2').css('font-size', '24px');
+            $('#link-2').on('click', function () {
+                $.ajax(
+                    {
+                        url: '/forum/ajax/',
+                        success: function (ret) {
+                            $('#link-2').text(ret['title'])
+                        }
+                    }
+                );
+
+                $.get('/forum/ajax/', function () {
+                });
+
+                return false;
+            });
+        });
+
+    </script>
 {% endblock %}

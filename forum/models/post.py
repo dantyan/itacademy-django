@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
 from django.urls import reverse
 
@@ -27,6 +28,14 @@ class Post(models.Model):
 
     views_cnt = models.IntegerField(default=0)
     comment_cnt = models.IntegerField(default=0)
+
+    tags_list = ArrayField(
+        models.CharField(max_length=10),
+        default=list
+    )
+    options = JSONField(
+        default=dict
+    )
 
     class Meta:
         ordering = ['pk']

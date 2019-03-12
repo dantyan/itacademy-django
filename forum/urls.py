@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
+from forum.views.ajax import ajax_view
 from forum.views.comment import CreateCommentView
 from forum.views.contact import ContactView
 from forum.views.home import HomeView
@@ -22,5 +23,6 @@ urlpatterns = [
 
     path('comment/create/', CreateCommentView.as_view(), name="create-comment"),
 
-    path('contact/', ContactView.as_view())
+    path('contact/', ContactView.as_view()),
+    path('ajax/', ajax_view)
 ]

@@ -1,4 +1,4 @@
-{% extends 'pages/_form.html' %}
+{% extends 'pages/_forum.html' %}
 
 
 {% block content %}
@@ -12,6 +12,13 @@
                     <h1>{{ object.title }}</h1>
                     <div>
                         {{ object.content }}
+                    </div>
+
+                    <div>
+                        {% for tag in object.tags_list %}
+                            <a href="{{ tag }}">{{ tag }}</a>
+                        {% endfor %}
+
                     </div>
                 </div>
 
