@@ -1,5 +1,5 @@
 {% extends 'pages/_forum.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -31,7 +31,7 @@
 
             {% if comments %}
                 <div class="card">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush" id="comment-list">
                         {% for comment in comments %}
 
                             <li class="list-group-item">
@@ -49,49 +49,57 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <form action="{% url 'forum:create-comment' %}" method="post">
+                    <form action="{% url 'forum:create-comment' %}"
+                          method="post"
+                          id="comment-form"
+                    >
                         {{ comment_form.as_p }}
-                        {% comment %}
-                        {% for field in comment_form %}
-                            {% if field.is_hidden %}
-                                {{ field }}
-                            {% else %}
-                                <fieldset class="form-group row mb25 {% if field.errors %}has-error{% endif %}">
-                                    <div class="col-md-12">
-
-                                        {{ field }}
-
-                                        {% for error in field.errors %}
-                                            <div class="invalid-feedback" style="display: block">
-                                                {{ error }}
-                                            </div>
-                                        {% endfor %}
-
-                                        {% if field.help_text %}
-                                            <small class="form-text text-muted">
-                                                {{ field.help_text }}
-                                            </small>
-                                        {% endif %}
-                                    </div>
-
-                                </fieldset>
-                            {% endif %}
-
-
-                        {% endfor %}
-{% endcomment %}
 
                         <div>
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button
+                                    id="ajax-button"
+                                    type="submit"
+                                    class="btn btn-primary">Save
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
-
-
-
         </div>
     </div>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#ajax-button').on('click', function () {
+
+                $.post(
+                    '{% url 'forum:ajax' %}',
+                    $('#comment-form').serialize(),
+                    function (response) {
+                        $('<li/>')
+                            .addClass('list-group-item')
+                            .text(response.comment)
+                            .appendTo($('#comment-list'));
+                        $('#comment-form').trigger('reset')
+                    }
+                );
+
+                return false;
+
+            });
+
+
+            setInterval(function () {
+                console.log('interval');
+            }, 5000);
+
+
+        });
+
+    </script>
+
 
 {% endblock %}

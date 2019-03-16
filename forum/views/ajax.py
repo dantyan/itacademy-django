@@ -1,15 +1,20 @@
+from datetime import datetime
+
 from django.http import JsonResponse
 
-from forum.models import Post
+from forum.forms import CommentForm
 
 
 def ajax_view(request):
-    post = Post.objects.order_by('?').first()
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.save()
 
     return JsonResponse({
-        'title': post.title,
-        'id': post.pk,
-        'content': post.content,
+        "comment": '{} - {}'.format(datetime.now(), comment.content),
+        'pk': comment.pk
     })
 
 # def ajax_view(request):

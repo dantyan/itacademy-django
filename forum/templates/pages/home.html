@@ -49,13 +49,15 @@
 
         $(document).ready(function () {
             $('#ajax-button').on('click', function () {
-                {#$.ajax({})#}
-                $.getJSON('{% url 'forum:ajax' %}', function (ret) {
-                    {#$('#ajax-content').html(ret);#}
-                    $('<p/>').text(ret.content).appendTo($('#ajax-content'));
-                    $('<h6/>').text(ret.title).appendTo($('#ajax-content'));
+
+                $.post('{% url 'forum:ajax' %}', {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    title: 'Some data',
+                    content: 123,
+                }, function () {
 
                 });
+
             });
         });
 
