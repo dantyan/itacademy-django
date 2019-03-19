@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from forum.views.ajax import ajax_view
+from forum.views.chat import add_message, chat, messages
 from forum.views.comment import CreateCommentView
 from forum.views.contact import ContactView
 from forum.views.home import HomeView
@@ -26,4 +27,10 @@ urlpatterns = [
     path('contact/', ContactView.as_view()),
 
     path('ajax/', ajax_view, name="ajax"),
+
+    # chat ---
+    path('chat/', chat, name="chat"),
+    path('chat/messages/', messages, name="chat-messages"),
+    path('chat/add/', add_message, name="chat-add"),
+
 ]

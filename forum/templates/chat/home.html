@@ -1,0 +1,53 @@
+{% extends 'pages/_forum.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+
+                    {% for message in messages %}
+                        <div class="card-text">{{ message.message }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="card-footer">
+                    <textarea name="" id="message" cols="30" rows="3" class="form-control"></textarea>
+                    <button class="btn btn-primary" id="save-message">save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script>
+        jQuery(function () {
+
+            setInterval(function () {
+                $.get('{% url 'forum:chat-messages' %}', {}, function (response) {
+
+                });
+            }, 5000);
+
+            $('#save-message').on('click', function (event) {
+                event.preventDefault();
+
+                $.post(
+                    '{% url 'forum:chat-add' %}',
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        message: $('#message').val()
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+
+                return false;
+            });
+        });
+    </script>
+
+{% endblock %}

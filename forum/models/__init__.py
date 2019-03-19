@@ -1,3 +1,4 @@
+from forum.models.chat import Chat
 from forum.models.comment import Comment
 from forum.models.post import Post
 from forum.models.rating import Rating
