@@ -14,10 +14,10 @@ class CreateCommentView(CreateView):
 
         response = super().form_valid(form)
 
-        count = Comment.objects.filter(post=self.object.post).count()
-        # self.object.post.comment_cnt = F('comment_cnt') + 1
-        self.object.post.comment_cnt = count
-        self.object.post.save()
+        # count = Comment.objects.filter(post=self.object.post).count()
+        # # self.object.post.comment_cnt = F('comment_cnt') + 1
+        # self.object.post.comment_cnt = count
+        # self.object.post.save()
 
         return response
 

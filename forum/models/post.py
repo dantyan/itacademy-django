@@ -1,6 +1,10 @@
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
+from django.db.models.signals import post_delete, post_save
+from django.dispatch import receiver
 from django.urls import reverse
+
+from forum.models import Comment
 
 
 class Post(models.Model):
@@ -45,3 +49,9 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('forum:post', kwargs={'pk': self.pk})
+
+
+@receiver([post_save, post_delete], sender=Comment)
+def comment_post_save(sender, instance, *args, **kwargs):
+    instance.post.comment_cnt = instance.post.comments.count()
+    instance.post.save()

@@ -26,3 +26,16 @@ class Comment(models.Model):
 
     def get_content(self):
         return self.content
+
+    def save(self, *args, **kwargs):
+        self.content = self.content.replace('<script>', '')
+
+        super().save(*args, **kwargs)
+    #
+    #     self.post.comment_cnt = self.post.comments.count()
+    #     self.post.save()
+    #
+    # def delete(self, using=None, keep_parents=False):
+    #     self.status = 'deleted'
+    #     self.save()
+    #

@@ -14,7 +14,11 @@ def chat(request):
 
 
 def messages(request):
-    return render(request, 'chat/home.html', {})
+    _messages = Chat.objects.all()
+
+    return render(request, 'chat/messages.html', {
+        'messages': _messages
+    })
 
 
 @require_POST
