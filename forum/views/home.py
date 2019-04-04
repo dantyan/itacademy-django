@@ -10,5 +10,4 @@ class HomeView(TemplateView):
         data = super().get_context_data(**kwargs)
 
         data['threads'] = Thread.objects.all()
-
         return data

@@ -26,7 +26,11 @@
         jQuery(function () {
             setInterval(function () {
                 $.get('{% url 'forum:chat-messages' %}', {}, function (response) {
-                    $('#chat-body').html(response);
+                    $('#chat-body').empty();
+                    $.each(response.messages, function (i, item) {
+                        $('<div/>').text(item.message).appendTo($('#chat-body'));
+                    });
+                    {#$('#chat-body').html(response);#}
                 });
             }, 2000);
 
@@ -40,7 +44,7 @@
                         message: $('#message').val()
                     },
                     function (response) {
-                        console.log(response);
+                        $('#message').val('')
                     }
                 );
 

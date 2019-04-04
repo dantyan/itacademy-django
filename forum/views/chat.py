@@ -16,8 +16,8 @@ def chat(request):
 def messages(request):
     _messages = Chat.objects.all()
 
-    return render(request, 'chat/messages.html', {
-        'messages': _messages
+    return JsonResponse({
+        "messages": [{"message": message.message} for message in _messages],
     })
 
 

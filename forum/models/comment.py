@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 class Comment(models.Model):
     user = models.ForeignKey(
         'user.UserModel',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     post = models.ForeignKey(
         'forum.Post',
