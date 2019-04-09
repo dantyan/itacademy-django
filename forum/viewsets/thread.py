@@ -1,27 +1,44 @@
-from rest_framework import viewsets
-from rest_framework.pagination import PageNumberPagination
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from forum.models import Thread
-from forum.serializers.thread import ThreadSerializer
+from forum.serializers.thread import LiteThreadSerializer, ThreadSerializer
+
+
+class IsOwner(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        return request.user.id == obj.author_id
 
 
 class ThreadViewset(viewsets.ModelViewSet):
+    http_method_names = [
+        'get', 'patch', 'options',
+    ]
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
-    page_size = 2
-    pagination_class = PageNumberPagination
 
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+    # permission_classes = [permissions.IsAuthenticated, IsOwner]
 
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(author=self.request.user)
+    #     return queryset
 
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return LiteThreadSerializer
+        return self.serializer_class
 
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+    @action(
+        detail=False,
+        url_name='mine',
+        url_path='favs',
+        methods=['get', 'post']
+    )
+    def my_favorite(self, request):
+        print('my favorite')
+        queryset = self.get_queryset()
+        queryset = queryset.filter(pk=1)
+        return Response(LiteThreadSerializer(queryset, many=True).data)

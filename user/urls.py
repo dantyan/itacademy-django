@@ -16,4 +16,6 @@ urlpatterns = [
         name='signup-confirm',
     ),
 
+    path('profile/<int:pk>', home, name="profile")
+
 ]
