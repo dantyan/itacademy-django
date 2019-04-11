@@ -6,6 +6,7 @@ from forum.models import Thread
 from forum.serializers.thread import LiteThreadSerializer, ThreadSerializer
 
 
+# adskjfhlaksjdhflakj
 class IsOwner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
