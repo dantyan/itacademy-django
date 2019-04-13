@@ -1,0 +1,91 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div id="forum-app">loading ...</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div id="post-app"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="">
+                <div><input type="text" id="title" class="form-control"></div>
+                <div><textarea name="" cols="30" rows="10" class="form-control" id="description"></textarea></div>
+                <div class="text-right">
+                    <button id="save">save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script>
+
+    function loadForums() {
+
+        $.get('/forum/api/thread/', function (res) {
+            $('#forum-app').empty();
+            $.each(res, function (i, item) {
+                console.log(item);
+                $('<div/>').append($('<a/>').attr('href', '#').on('click', function () {
+                    loadPosts(item.pk);
+                    return false;
+                }).text(item.title)).appendTo($('#forum-app'))
+            });
+        });
+    }
+
+    function loadPosts(forum_id) {
+        $.get('/forum/api/post/', {thread: forum_id}, function (res) {
+            $('#post-app').empty();
+            $.each(res, function (i, item) {
+                $('<div/>').addClass('mb-3').html(item.content).appendTo($('#post-app'))
+            })
+        });
+    }
+
+    jQuery(function () {
+        loadForums();
+
+        $('#save').on('click', function () {
+            $.post('/forum/api/thread/', {
+                title: $('#title').val(),
+                description: $('#description').val(),
+
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }, function (res) {
+                loadForums();
+                $('#title').val('');
+                $('#description').val('')
+            });
+            return false;
+        })
+    });
+
+</script>
+</body>
+</html>

@@ -8,11 +8,14 @@ from forum.views.comment import CreateCommentView
 from forum.views.contact import ContactView
 from forum.views.home import HomeView
 from forum.views.post import CreatePostView, PostView, UpdatePostView
+from forum.views.reach import ReachView
 from forum.views.thread import ThreadView
+from forum.viewsets.post import PostViewSet
 from forum.viewsets.thread import ThreadViewset
 
 router = routers.SimpleRouter()
 router.register('thread', ThreadViewset, )
+router.register('post', PostViewSet, )
 
 app_name = 'forum'
 urlpatterns = [
@@ -33,11 +36,12 @@ urlpatterns = [
 
     path('contact/', ContactView.as_view()),
 
-    path('ajax/', ajax_view, name="ajax"),
+    path('ajaxReachView/', ajax_view, name="ajax"),
 
     # chat ---
     path('chat/', chat, name="chat"),
     path('chat/messages/', messages, name="chat-messages"),
     path('chat/add/', add_message, name="chat-add"),
 
+    path('reach/', ReachView.as_view()),
 ]

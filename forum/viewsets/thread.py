@@ -2,11 +2,11 @@ from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from forum.filters import ThreadFilter
 from forum.models import Thread
 from forum.serializers.thread import LiteThreadSerializer, ThreadSerializer
 
 
-# adskjfhlaksjdhflakj
 class IsOwner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
@@ -14,11 +14,9 @@ class IsOwner(permissions.BasePermission):
 
 
 class ThreadViewset(viewsets.ModelViewSet):
-    http_method_names = [
-        'get', 'patch', 'options',
-    ]
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
+    filter_class = ThreadFilter
 
     # permission_classes = [permissions.IsAuthenticated, IsOwner]
 

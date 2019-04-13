@@ -1,15 +1,9 @@
 from rest_framework import serializers
 
 from forum.models import Thread
-from forum.serializers.post import PostSerializer
-from user.serializers.user import UserSerializer
 
 
 class ThreadSerializer(serializers.ModelSerializer):
-    author = UserSerializer()
-    post_set = PostSerializer(many=True)
-
-    foo = serializers.SerializerMethodField()
 
     class Meta:
         model = Thread
@@ -17,14 +11,6 @@ class ThreadSerializer(serializers.ModelSerializer):
             'pk',
             'title',
             'description',
-            'add_time',
-            'private',
-            'post_cnt',
-            'comment_cnt',
-
-            'author',
-            'foo',
-            'post_set'
         ]
 
     def get_author(self, obj):
