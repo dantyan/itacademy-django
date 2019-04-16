@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
+
+    'drf_yasg',
     # 'car',
 ]
 
@@ -169,7 +171,7 @@ EMAIL_USE_TLS = True
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-        
+
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_FILTER_BACKENDS': (
