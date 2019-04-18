@@ -37,6 +37,11 @@ class ThreadViewset(viewsets.ModelViewSet):
         methods=['get', 'post']
     )
     def my_favorite(self, request):
+        """
+        My favs description
+        :param request:
+        :return:
+        """
         print('my favorite')
         queryset = self.get_queryset()
         queryset = queryset.filter(pk=1)
