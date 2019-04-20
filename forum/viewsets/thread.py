@@ -17,8 +17,7 @@ class ThreadViewset(viewsets.ModelViewSet):
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
     filter_class = ThreadFilter
-
-    # permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     # def get_queryset(self):
     #     queryset = super().get_queryset()
